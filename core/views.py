@@ -5,14 +5,14 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
-from .serializers import RegisterUserSerializer, ChangePasswordSerializer, PasswordResetSerializer, \
+from core.serializers.auth import RegisterUserSerializer, ChangePasswordSerializer, PasswordResetSerializer, \
     PasswordResetConfirmSerializer
 from django.contrib.auth import get_user_model
 
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
-from .tokens import account_activation_token, password_reset_token
+from core.serializers.tokens import account_activation_token, password_reset_token
 from django.conf import settings
 
 VERIFICATION_URL = settings.VERIFICATION_URL

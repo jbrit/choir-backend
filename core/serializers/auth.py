@@ -4,7 +4,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from .tokens import password_reset_token
+from core.serializers.tokens import password_reset_token
 
 User = get_user_model()
 
