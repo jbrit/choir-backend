@@ -25,6 +25,7 @@ INSTALLED_APPS = [
 
     'core.apps.CoreConfig',
     'songs.apps.SongsConfig',
+    'rehearsals.apps.RehearsalsConfig',
     'rest_framework',
     'drf_spectacular',
 ]

@@ -14,5 +14,5 @@ urlpatterns = [
     # Auth Views
     path("api/auth/", include("core.urls")),
     path("api/songs/", include("songs.urls")),
-    # path("api/rehearsals/", include("rehearsals.urls")),
+    path("api/rehearsals/", include("rehearsals.urls")),
 ]

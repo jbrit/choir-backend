@@ -42,3 +42,6 @@ data/
 
 #pycharm
 .idea
+
+.vscode
+.DS_Store
