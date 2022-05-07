@@ -1,9 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+from core.constants import GENDER_CATEGORY_CHOICES, LEVEL_CATEGORY_CHOICES, PART_CATEGORY_CHOICES
+from core.validators import validate_matricno, validate_regno
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -55,7 +58,13 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_verified = models.BooleanField(default=False)
-    # TODO: add other biodata fields
+    gender = models.CharField(max_length=6, choices=GENDER_CATEGORY_CHOICES)
+    level = models.CharField(max_length=3, choices=LEVEL_CATEGORY_CHOICES)
+    department = models.TextField()
+    part = models.CharField(max_length=8, choices=PART_CATEGORY_CHOICES)
+    reg_no = models.IntegerField(validators=[validate_regno])
+    matric_no = models.TextField(validators=[validate_matricno])
+    birthday = models.DateField(null=False)
 
     def __str__(self):
         return self.user.email

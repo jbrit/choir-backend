@@ -1,10 +1,11 @@
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, UpdateAPIView
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
+from core.models import Profile
 from core.serializers.auth import RegisterUserSerializer, ChangePasswordSerializer, PasswordResetSerializer, \
     PasswordResetConfirmSerializer
 from django.contrib.auth import get_user_model
@@ -12,6 +13,7 @@ from django.contrib.auth import get_user_model
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
+from core.serializers.biodata import BiodataSerializer
 from core.serializers.tokens import account_activation_token, password_reset_token
 from django.conf import settings
 
@@ -50,7 +52,8 @@ class RegisterUserView(GenericAPIView):
                 'token': account_activation_token.make_token(user),
                 'url': VERIFICATION_URL
             })
-            user.email_user(subject, message)
+            print(subject, message)
+            # user.email_user(subject, message)
             data = {"message": "Please check your email to verify your account"}
             return Response(data=data, status=status.HTTP_201_CREATED)
         return Response(data={"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
@@ -144,3 +147,11 @@ class PasswordResetConfirmView(GenericAPIView):
                 {"message": "Password has been reset successfully."}, status=status.HTTP_200_OK
             )
         return Response(data={"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BiodataView(UpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = BiodataSerializer
+
+    def get_object(self):
+        return Profile.objects.get(user=self.request.user.id)
