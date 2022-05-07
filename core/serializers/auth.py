@@ -14,6 +14,10 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     
+    def validate_email(self, value: str):
+        if not value.endswith("@lmu.edu.ng"):
+            raise serializers.ValidationError("You need to use an LMU mail")
+    
     def validate_confirm_password(self, value):
         """
         Check that the passwords are the same.
