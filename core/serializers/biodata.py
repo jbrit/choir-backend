@@ -8,4 +8,4 @@ class BiodataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["level", "department", "part", "reg_no", "matric_no", "birthday", "gender"]
+        fields = ["level", "department", "part", "matric_no", "birthday", "gender"]

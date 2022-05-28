@@ -45,15 +45,21 @@ class RegisterUserView(GenericAPIView):
             user.save()
             current_site = get_current_site(request)
             subject = 'Activate Your Choir Account'
-            message = render_to_string('account_activation_email.html', {
+            html_message = render_to_string('account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
                 'url': VERIFICATION_URL
             })
-            print(subject, message)
-            # user.email_user(subject, message)
+            message = render_to_string('account_activation_email.txt', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+                'url': VERIFICATION_URL
+            })
+            user.email_user(subject, message, html_message=html_message)
             data = {"message": "Please check your email to verify your account"}
             return Response(data=data, status=status.HTTP_201_CREATED)
         return Response(data={"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import Profile, User
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext_lazy as _
 
@@ -25,3 +25,4 @@ class UserAdmin(DjangoUserAdmin):
     ordering = ('email',)
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile)

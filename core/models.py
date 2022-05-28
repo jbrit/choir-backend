@@ -60,11 +60,11 @@ class Profile(models.Model):
     email_verified = models.BooleanField(default=False)
     gender = models.CharField(max_length=6, choices=GENDER_CATEGORY_CHOICES)
     level = models.CharField(max_length=3, choices=LEVEL_CATEGORY_CHOICES)
-    department = models.TextField()
+    department = models.TextField(blank=True, default="")
     part = models.CharField(max_length=8, choices=PART_CATEGORY_CHOICES)
-    reg_no = models.IntegerField(validators=[validate_regno])
-    matric_no = models.TextField(validators=[validate_matricno])
-    birthday = models.DateField(null=False)
+    reg_no = models.IntegerField(default=1000000, validators=[validate_regno])
+    matric_no = models.TextField(default="10AA000000", validators=[validate_matricno])
+    birthday = models.DateField(null=True)
 
     def __str__(self):
         return self.user.email
