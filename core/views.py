@@ -41,7 +41,7 @@ class RegisterUserView(GenericAPIView):
         serializer = RegisterUserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.create(serializer.validated_data)
-            user.is_active = False
+            # user.is_active = False
             user.save()
             current_site = get_current_site(request)
             subject = 'Activate Your Choir Account'
@@ -59,7 +59,7 @@ class RegisterUserView(GenericAPIView):
                 'token': account_activation_token.make_token(user),
                 'url': VERIFICATION_URL
             })
-            user.email_user(subject, message, html_message=html_message)
+            # user.email_user(subject, message, html_message=html_message)
             data = {"message": "Please check your email to verify your account"}
             return Response(data=data, status=status.HTTP_201_CREATED)
         return Response(data={"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
