@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'songs.apps.SongsConfig',
     'rehearsals.apps.RehearsalsConfig',
+    'corsheaders',
     'rest_framework',
     'drf_spectacular',
 ]
@@ -33,6 +34,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

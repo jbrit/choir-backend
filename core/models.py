@@ -61,6 +61,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER_CATEGORY_CHOICES)
     level = models.CharField(max_length=3, choices=LEVEL_CATEGORY_CHOICES)
     department = models.TextField(blank=True, default="")
+    name = models.TextField(blank=False, null=False, default="User")
     part = models.CharField(max_length=8, choices=PART_CATEGORY_CHOICES)
     reg_no = models.IntegerField(default=1000000, validators=[validate_regno])
     matric_no = models.TextField(default="10AA000000", validators=[validate_matricno])

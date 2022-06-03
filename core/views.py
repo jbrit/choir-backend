@@ -1,7 +1,7 @@
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
-from rest_framework.generics import GenericAPIView, UpdateAPIView
+from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
@@ -155,7 +155,7 @@ class PasswordResetConfirmView(GenericAPIView):
         return Response(data={"message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BiodataView(UpdateAPIView):
+class BiodataView(RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = BiodataSerializer
 
