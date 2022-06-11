@@ -158,6 +158,7 @@ class PasswordResetConfirmView(GenericAPIView):
 class BiodataView(RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = BiodataSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_object(self):
         return Profile.objects.get(user=self.request.user.id)
