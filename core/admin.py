@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Profile, User
+from songs.models import Song
+from rehearsals.models import Rehearsal
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import gettext_lazy as _
 
@@ -26,3 +28,5 @@ class UserAdmin(DjangoUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile)
+admin.site.register(Song)
+admin.site.register(Rehearsal)
